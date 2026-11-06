@@ -1,0 +1,427 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Raven Baker Check Q</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Prompt:wght@400;500;600&display=swap">
+<style>
+/* Layout: one bright pastel-yellow column, sized for phones. Header card, three stat tiles, overall progress, search and filters, then queue cards where a puppy rides a flowing wave to a bone. Single light look by choice. */
+:root {
+  --bg: #FFF6BD;
+  --bg-2: #FFFCE6;
+  --surface: #FFFFFA;
+  --surface-2: #FFF0A3;
+  --ink: #4A3510;
+  --ink-soft: #85703F;
+  --line: #FBE382;
+  --accent: #FFD84D;
+  --track: #FFF3B4;
+  --fur: #D9964A;
+  --fur-light: #FFF3CB;
+  --muzzle: #FFFFFF;
+  --shadow: 0 8px 22px rgba(214, 160, 0, .18);
+  --wait-bg: #F5EFD9;
+  --wait-fg: #6B5B3A;
+  --doing-bg: #FFE594;
+  --doing-fg: #5C3F00;
+  --done-bg: #D8F2CF;
+  --done-fg: #25601F;
+  --font-display: "Mali", "Noto Sans Thai", "Tahoma", sans-serif;
+  --font-body: "Prompt", "Noto Sans Thai", "Tahoma", sans-serif;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  background-image: linear-gradient(180deg, var(--bg) 0, var(--bg-2) 520px);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-block: 22px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* header */
+.head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 32px;
+  padding: 18px 20px 18px 24px; box-shadow: var(--shadow);
+}
+.brand { min-width: 0; }
+.brand h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1.1; letter-spacing: .01em; }
+.sub { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.sub .label { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+.chip {
+  display: inline-flex; align-items: center; border: 1px solid var(--line); background: var(--surface-2);
+  border-radius: 999px; padding: 1px 11px; font-size: 13px; font-weight: 500; white-space: nowrap;
+}
+.avatar { flex: none; width: 92px; height: 92px; border-radius: 30px; background: var(--surface-2); display: grid; place-items: center; }
+.avatar svg { width: 76px; height: 76px; }
+
+/* stat tiles */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tile {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow);
+  padding: 16px 8px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.tile.hot { background: var(--accent); border-color: var(--accent); }
+.tile .k { font-size: 13px; font-weight: 500; color: var(--ink-soft); }
+.tile.hot .k { color: var(--ink); }
+.tile .n { font-family: var(--font-display); font-weight: 700; font-size: 46px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.tile .c { font-size: 13px; color: var(--ink-soft); }
+.tile.hot .c { color: var(--ink); }
+
+/* overall */
+.overall { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 14px 18px; display: grid; gap: 10px; box-shadow: var(--shadow); }
+.overall .row { display: flex; justify-content: space-between; gap: 8px; font-size: 15px; color: var(--ink-soft); }
+.overall .row b { color: var(--ink); font-weight: 600; }
+.thin { height: 12px; border-radius: 999px; background: var(--track); overflow: hidden; }
+.thin i { display: block; height: 100%; background: var(--accent); border-radius: 999px; width: 0; transition: width .8s ease-out; }
+
+/* search + filters */
+.tools { display: grid; gap: 12px; margin-top: 6px; }
+.search { position: relative; }
+.search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; stroke: var(--ink-soft); fill: none; stroke-width: 2; stroke-linecap: round; }
+.search input {
+  width: 100%; border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px;
+  padding: 14px 20px 14px 50px; min-width: 0; box-shadow: var(--shadow);
+}
+.search input::placeholder { color: var(--ink-soft); opacity: .85; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 16px;
+  font-size: 15px; font-weight: 500; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+.filters button span { color: var(--ink-soft); margin-left: 5px; font-variant-numeric: tabular-nums; }
+.filters button[aria-pressed="true"] span { color: var(--ink); }
+
+.note { background: var(--surface-2); border-radius: 18px; padding: 12px 16px; font-size: 14px; }
+
+/* cards */
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 30px; box-shadow: var(--shadow); padding: 20px 20px 18px; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.who { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.qno { font-family: var(--font-display); font-weight: 700; font-size: 14px; background: var(--accent); border-radius: 11px; padding: 2px 9px; font-variant-numeric: tabular-nums; }
+.name { font-family: var(--font-display); font-weight: 600; font-size: 22px; overflow-wrap: anywhere; }
+.due { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 15px; padding: 5px 12px; font-size: 15px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.due svg { width: 17px; height: 17px; stroke: var(--ink-soft); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mid { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; }
+.what { min-width: 0; }
+.what small { display: block; color: var(--ink-soft); font-size: 13px; }
+.what span { font-size: 17px; overflow-wrap: anywhere; }
+.pill { flex: none; display: inline-flex; align-items: center; gap: 7px; border-radius: 15px; padding: 7px 14px; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.pill::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+.pill.wait { background: var(--wait-bg); color: var(--wait-fg); }
+.pill.doing { background: var(--doing-bg); color: var(--doing-fg); }
+.pill.doing::before { animation: pulse 1.4s ease-in-out infinite; }
+.pill.done { background: var(--done-bg); color: var(--done-fg); }
+
+/* wavy progress */
+.prog { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.bar { position: relative; flex: 1; min-width: 0; height: 44px; border-radius: 999px; background: var(--track); border: 2px solid var(--line); }
+.bar .fill {
+  position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; overflow: hidden; background: var(--accent);
+  width: calc(20px + (100% - 40px) * var(--p) / 100); animation: grow .9s ease-out;
+}
+.bar .fill::before, .bar .fill::after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-repeat: repeat-x; background-size: 80px 100%; }
+.bar .fill::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' preserveAspectRatio='none'%3E%3Cpath d='M0 15 Q20 3 40 15 T80 15 V40 H0Z' fill='%23ffffff' fill-opacity='.55'/%3E%3C/svg%3E");
+  animation: flow 2.2s linear infinite;
+}
+.bar .fill::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' preserveAspectRatio='none'%3E%3Cpath d='M0 24 Q20 12 40 24 T80 24 V40 H0Z' fill='%23ffb300' fill-opacity='.38'/%3E%3C/svg%3E");
+  animation: flow-back 3.4s linear infinite;
+}
+.bar .bone { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 34px; height: 14px; }
+.bar .pup { position: absolute; top: 50%; margin-top: -20px; width: 40px; height: 40px; left: calc((100% - 40px) * var(--p) / 100); animation: run .9s ease-out, bob 1.3s ease-in-out infinite; }
+.pct { width: 46px; text-align: right; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.empty { text-align: center; color: var(--ink-soft); padding: 32px 12px; }
+.foot { text-align: center; font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
+
+@keyframes grow { from { width: 20px; } }
+@keyframes run { from { left: 0; } }
+@keyframes flow { from { background-position: 0 0; } to { background-position: 80px 0; } }
+@keyframes flow-back { from { background-position: 0 0; } to { background-position: -80px 0; } }
+@keyframes bob { 50% { transform: translateY(-3px) rotate(-4deg); } }
+@keyframes pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) {
+  .bar .fill, .bar .fill::before, .bar .fill::after, .bar .pup, .pill.doing::before, .thin i { animation: none; transition: none; }
+}
+@media (max-width: 380px) {
+  .brand h1 { font-size: 29px; }
+  .avatar { width: 76px; height: 76px; }
+  .avatar svg { width: 62px; height: 62px; }
+  .tile .n { font-size: 40px; }
+  .card { padding: 16px 14px 14px; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="pup" viewBox="0 0 100 100">
+      <ellipse cx="22" cy="48" rx="13" ry="25" transform="rotate(12 22 48)" style="fill:var(--fur)"/>
+      <ellipse cx="78" cy="48" rx="13" ry="25" transform="rotate(-12 78 48)" style="fill:var(--fur)"/>
+      <circle cx="50" cy="54" r="31" style="fill:var(--fur-light)"/>
+      <circle cx="63" cy="43" r="10" style="fill:var(--fur);opacity:.55"/>
+      <ellipse cx="50" cy="66" rx="15" ry="11" style="fill:var(--muzzle)"/>
+      <circle cx="38" cy="51" r="3.8" style="fill:#3E2C14"/>
+      <circle cx="62" cy="51" r="3.8" style="fill:#3E2C14"/>
+      <circle cx="39.3" cy="49.7" r="1.2" style="fill:#FFFFFF"/>
+      <circle cx="63.3" cy="49.7" r="1.2" style="fill:#FFFFFF"/>
+      <ellipse cx="50" cy="60" rx="6" ry="4.2" style="fill:#3E2C14"/>
+      <path d="M50 64v4M43 69q7 6 14 0" style="fill:none;stroke:#3E2C14;stroke-width:2.4;stroke-linecap:round"/>
+      <ellipse cx="50" cy="74" rx="4" ry="3.4" style="fill:#F28B9B"/>
+    </symbol>
+    <symbol id="bone" viewBox="0 0 40 16">
+      <g style="fill:var(--fur);stroke:var(--fur);stroke-width:2.2">
+        <rect x="7" y="4.5" width="26" height="7" rx="2"/>
+        <circle cx="6.5" cy="4.5" r="3.6"/><circle cx="6.5" cy="11.5" r="3.6"/>
+        <circle cx="33.5" cy="4.5" r="3.6"/><circle cx="33.5" cy="11.5" r="3.6"/>
+      </g>
+      <g style="fill:var(--muzzle)">
+        <rect x="7" y="4.5" width="26" height="7" rx="2"/>
+        <circle cx="6.5" cy="4.5" r="3.6"/><circle cx="6.5" cy="11.5" r="3.6"/>
+        <circle cx="33.5" cy="4.5" r="3.6"/><circle cx="33.5" cy="11.5" r="3.6"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="wrap">
+  <header class="head">
+    <div class="brand">
+      <h1>Raven Baker</h1>
+      <div class="sub">
+        <span class="label">— Check Q</span>
+        <span class="chip">ดูได้ทุกคน</span>
+      </div>
+    </div>
+    <div class="avatar"><svg viewBox="0 0 100 100" role="img" aria-label="น้องหมาประจำร้าน"><use href="#pup"/></svg></div>
+  </header>
+
+  <section class="tiles" aria-label="สรุปคิว">
+    <div class="tile hot"><span class="k">ส่งงานถัดไป</span><span class="n" id="nextDay">-</span><span class="c" id="nextMonth">&nbsp;</span></div>
+    <div class="tile"><span class="k">กำลังทำ</span><span class="n" id="nDoing">0</span><span class="c">งาน</span></div>
+    <div class="tile"><span class="k">รอคิว</span><span class="n" id="nWait">0</span><span class="c">งาน</span></div>
+  </section>
+
+  <section class="overall" aria-label="ความคืบหน้ารวม">
+    <div class="row"><span>เสร็จแล้ว <b id="doneTxt">0 จาก 0</b> งาน</span><b id="donePct">0%</b></div>
+    <div class="thin"><i id="doneBar"></i></div>
+  </section>
+
+  <section class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="พิมพ์ชื่อหรือช่องทาง เพื่อหาคิวของคุณ" autocomplete="off">
+    </label>
+    <div class="filters" id="filters"></div>
+  </section>
+
+  <div class="note" id="sampleNote" hidden>ตอนนี้เป็นข้อมูลตัวอย่าง พอเชื่อม Google Sheets แล้วหน้านี้จะแสดงคิวจริงของร้าน</div>
+
+  <ul class="list" id="list"></ul>
+  <p class="foot" id="foot"></p>
+</main>
+
+<script>
+/* ใส่ลิงก์ CSV ของ Google Sheets ตรงนี้ (ไฟล์ > แชร์ > เผยแพร่ไปยังเว็บ > เลือก CSV)
+   ถ้าเว้นว่างไว้ หน้านี้จะโชว์ข้อมูลตัวอย่าง */
+var SHEET_CSV_URL = "";
+
+var SAMPLE = [
+  { no: 1, name: "คุณมะลิ", channel: "LINE", type: "อีโมจิ", detail: "อีโมจิ 10 ชิ้น", due: "2026-11-12", status: "done", pct: 100 },
+  { no: 2, name: "น้องบัว", channel: "Facebook", type: "ภาพ Chibi", detail: "Chibi เต็มตัว 1 ตัว", due: "2026-11-20", status: "doing", pct: 65 },
+  { no: 3, name: "mint_", channel: "Discord", type: "ไอคอน", detail: "ไอคอนโปรไฟล์ 2 แบบ", due: "2026-11-24", status: "doing", pct: 30 },
+  { no: 4, name: "คุณต้น", channel: "LINE", type: "สติกเกอร์", detail: "สติกเกอร์ LINE 8 ชิ้น", due: "2026-12-02", status: "wait", pct: 0 },
+  { no: 5, name: "พี่ฟ้า", channel: "Instagram", type: "แบนเนอร์", detail: "แบนเนอร์สตรีม", due: "2026-12-09", status: "wait", pct: 0 }
+];
+
+var MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+var STATUS_LABEL = { wait: "รอคิว", doing: "กำลังทำ", done: "เสร็จแล้ว" };
+var state = { items: [], filter: "all", query: "", sample: true };
+
+function parseCSV(t) {
+  var rows = [], row = [], f = "", q = false, i, c;
+  for (i = 0; i < t.length; i++) {
+    c = t[i];
+    if (q) {
+      if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && t[i + 1] === "\n") i++;
+      row.push(f); rows.push(row); row = []; f = "";
+    } else f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+
+function normStatus(s) {
+  s = (s || "").trim();
+  if (s.indexOf("เสร็จ") > -1) return "done";
+  if (s.indexOf("กำลัง") > -1) return "doing";
+  return "wait";
+}
+
+function rowsToItems(rows) {
+  var head = rows[0].map(function (h) { return h.trim(); });
+  function col(n) { return head.indexOf(n); }
+  var ix = { no: col("คิว"), name: col("ชื่อ"), channel: col("ช่องทาง"), type: col("ประเภทงาน"), detail: col("รายละเอียด"), due: col("วันที่ส่ง"), status: col("สถานะ"), pct: col("ความคืบหน้า") };
+  function get(r, k) { return ix[k] > -1 ? (r[ix[k]] || "").trim() : ""; }
+  return rows.slice(1).filter(function (r) { return get(r, "name") !== ""; }).map(function (r, n) {
+    var st = normStatus(get(r, "status"));
+    var p = parseInt(get(r, "pct"), 10);
+    if (isNaN(p)) p = st === "done" ? 100 : 0;
+    if (st === "done") p = 100;
+    return { no: parseInt(get(r, "no"), 10) || n + 1, name: get(r, "name"), channel: get(r, "channel"), type: get(r, "type"), detail: get(r, "detail"), due: get(r, "due"), status: st, pct: Math.max(0, Math.min(100, p)) };
+  });
+}
+
+function parseDate(s) {
+  var m;
+  s = (s || "").trim();
+  m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+  m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+  if (m) {
+    var y = +m[3];
+    if (y < 100) y += 1957;
+    else if (y > 2400) y -= 543;
+    return new Date(y, +m[2] - 1, +m[1]);
+  }
+  return null;
+}
+function pad(n) { return (n < 10 ? "0" : "") + n; }
+function fmtDate(d) { return d ? pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + pad((d.getFullYear() + 543) % 100) : "-"; }
+
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function card(it) {
+  var li = el("li", "card");
+  var top = el("div", "top");
+  var who = el("div", "who");
+  who.appendChild(el("span", "qno", "#" + pad(it.no)));
+  who.appendChild(el("span", "name", it.name));
+  if (it.channel) who.appendChild(el("span", "chip", it.channel));
+  top.appendChild(who);
+  var due = el("span", "due");
+  due.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>';
+  due.appendChild(document.createTextNode(fmtDate(parseDate(it.due))));
+  due.setAttribute("title", "วันที่ส่งงาน");
+  top.appendChild(due);
+  li.appendChild(top);
+
+  var mid = el("div", "mid");
+  var what = el("div", "what");
+  what.appendChild(el("small", "", it.type || "งาน"));
+  what.appendChild(el("span", "", it.detail || it.type));
+  mid.appendChild(what);
+  mid.appendChild(el("span", "pill " + it.status, STATUS_LABEL[it.status]));
+  li.appendChild(mid);
+
+  var prog = el("div", "prog");
+  var bar = el("div", "bar");
+  bar.style.setProperty("--p", it.pct);
+  bar.setAttribute("role", "progressbar");
+  bar.setAttribute("aria-valuemin", "0");
+  bar.setAttribute("aria-valuemax", "100");
+  bar.setAttribute("aria-valuenow", it.pct);
+  bar.setAttribute("aria-label", "ความคืบหน้าของ " + it.name);
+  bar.innerHTML = '<div class="fill"></div><svg class="bone" aria-hidden="true"><use href="#bone"/></svg><svg class="pup" aria-hidden="true"><use href="#pup"/></svg>';
+  prog.appendChild(bar);
+  prog.appendChild(el("span", "pct", it.pct + "%"));
+  li.appendChild(prog);
+  return li;
+}
+
+function count(st) { return state.items.filter(function (i) { return i.status === st; }).length; }
+
+function renderSummary() {
+  var total = state.items.length, done = count("done");
+  document.getElementById("nDoing").textContent = count("doing");
+  document.getElementById("nWait").textContent = count("wait");
+  var next = null;
+  state.items.forEach(function (i) {
+    var d = parseDate(i.due);
+    if (i.status !== "done" && d && (!next || d < next)) next = d;
+  });
+  document.getElementById("nextDay").textContent = next ? next.getDate() : "-";
+  document.getElementById("nextMonth").textContent = next ? MONTHS[next.getMonth()] + " " + (next.getFullYear() + 543) : " ";
+  var pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById("doneTxt").textContent = done + " จาก " + total;
+  document.getElementById("donePct").textContent = pct + "%";
+  document.getElementById("doneBar").style.width = pct + "%";
+}
+
+function renderFilters() {
+  var box = document.getElementById("filters");
+  box.textContent = "";
+  [["all", "ทั้งหมด", state.items.length], ["doing", "กำลังทำ", count("doing")], ["wait", "รอคิว", count("wait")], ["done", "เสร็จแล้ว", count("done")]].forEach(function (f) {
+    var b = el("button", "", f[1]);
+    b.type = "button";
+    b.setAttribute("aria-pressed", state.filter === f[0] ? "true" : "false");
+    b.appendChild(el("span", "", String(f[2])));
+    b.addEventListener("click", function () { state.filter = f[0]; renderFilters(); renderList(); });
+    box.appendChild(b);
+  });
+}
+
+function renderList() {
+  var ul = document.getElementById("list");
+  var q = state.query.trim().toLowerCase();
+  var shown = state.items.filter(function (i) {
+    if (state.filter !== "all" && i.status !== state.filter) return false;
+    if (!q) return true;
+    return (i.name + " " + i.channel + " " + i.detail + " " + i.type).toLowerCase().indexOf(q) > -1;
+  });
+  ul.textContent = "";
+  if (!shown.length) {
+    ul.appendChild(el("li", "empty", "ไม่พบคิวที่ตรงกัน ลองพิมพ์ชื่ออื่น หรือเลือกดู “ทั้งหมด”"));
+    return;
+  }
+  shown.forEach(function (i) { ul.appendChild(card(i)); });
+}
+
+function renderAll() {
+  state.items.sort(function (a, b) { return a.no - b.no; });
+  document.getElementById("sampleNote").hidden = !state.sample;
+  document.getElementById("foot").textContent = state.sample ? "ข้อมูลตัวอย่าง" : "อัปเดตอัตโนมัติจาก Google Sheets";
+  renderSummary();
+  renderFilters();
+  renderList();
+}
+
+function load() {
+  if (!SHEET_CSV_URL) return;
+  fetch(SHEET_CSV_URL, { cache: "no-store" })
+    .then(function (r) { return r.text(); })
+    .then(function (t) { state.items = rowsToItems(parseCSV(t)); state.sample = false; renderAll(); })
+    .catch(function () {});
+}
+
+document.getElementById("q").addEventListener("input", function (e) { state.query = e.target.value; renderList(); });
+state.items = SAMPLE.slice();
+renderAll();
+load();
+if (SHEET_CSV_URL) setInterval(load, 60000);
+</script>
+
+</body></html>
